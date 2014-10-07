@@ -1,0 +1,30 @@
+---
+title: "Bhuyan.i607Assign.Week6"
+author: "Prashant B. Bhuyan"
+date: "October 7, 2014"
+output: pdf_document
+---
+
+In this application I am using rvest to scrape the bloomberg.com website.  The information that I'm extracting contains the prices of market indices from around the world.  
+
+I've extracted from a table embedded within the bloomberg website the Index Name, Value, Change, Open, High, Low and Time.  The results are printed below.
+
+```{r}
+setwd("~/Desktop")
+# install.packages("devtools")
+library(devtools)
+install_github("hadley/rvest")
+library(rvest)
+
+markets <- html("http://www.bloomberg.com/markets/")
+
+tables <- html_nodes(markets, "table")
+markets.df <- data.frame(html_table(tables[[2]]))
+colnames(markets.df) <- c("Index", "Value", "Change", "Open", "High", "Low", "Time")
+
+markets.df
+
+```
+
+
+
